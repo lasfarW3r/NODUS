@@ -5,4 +5,7 @@ from pathlib import Path
 class Document:
     path: Path
     extension: str
+    size: int
+    modified_time: float
     content: str
+    

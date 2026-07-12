@@ -1,0 +1,16 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# SQLite databases
+data/*.db
+
+# Windows
+desktop.ini
+
+# VS Code
+.vscode/
+
+# Virtual environments
+.venv/
+venv/

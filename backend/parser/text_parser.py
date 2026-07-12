@@ -7,6 +7,7 @@ def parse_text_file(file: Path) -> Document:
     """
     Parse a .txt file into a Document.
     """
+    stats = file.stat()
 
     if not file.is_file():
         raise FileNotFoundError(
@@ -21,7 +22,10 @@ def parse_text_file(file: Path) -> Document:
     return Document(
         path=file,
         extension=file.suffix,
+        size=stats.st_size,
+        modified_time=stats.st_mtime,
         content=file.read_text(encoding="utf-8"),
+
     )
 
 
