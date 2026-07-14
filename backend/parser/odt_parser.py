@@ -1,14 +1,18 @@
 from pathlib import Path
-import time
+
+from odf.opendocument import load
+from odf.text import P
 
 from backend.models.document import Document
 
 
-def parse_text(file: Path) -> Document:
-    content = file.read_text(
-        encoding="utf-8",
-        errors="ignore"
-    )
+def parse_odt(file: Path) -> Document:
+    doc = load(file)
+
+    content = ""
+
+    for paragraph in doc.getElementsByType(P):
+        content += str(paragraph) + "\n"
 
     return Document(
         path=file,

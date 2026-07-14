@@ -1,14 +1,17 @@
 from pathlib import Path
-import time
+
+from docx import Document as DocxDocument
 
 from backend.models.document import Document
 
 
-def parse_text(file: Path) -> Document:
-    content = file.read_text(
-        encoding="utf-8",
-        errors="ignore"
-    )
+def parse_docx(file: Path) -> Document:
+    doc = DocxDocument(file)
+
+    content = ""
+
+    for paragraph in doc.paragraphs:
+        content += paragraph.text + "\n"
 
     return Document(
         path=file,

@@ -1,14 +1,20 @@
 from pathlib import Path
-import time
+
+from pypdf import PdfReader
 
 from backend.models.document import Document
 
 
-def parse_text(file: Path) -> Document:
-    content = file.read_text(
-        encoding="utf-8",
-        errors="ignore"
-    )
+def parse_pdf(file: Path) -> Document:
+    reader = PdfReader(file)
+
+    content = ""
+
+    for page in reader.pages:
+        text = page.extract_text()
+
+        if text:
+            content += text + "\n"
 
     return Document(
         path=file,
